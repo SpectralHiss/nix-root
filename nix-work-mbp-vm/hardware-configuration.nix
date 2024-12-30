@@ -8,18 +8,18 @@
     [ (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/9693cb7e-02d4-43fa-9d01-de90ca55152f";
+    { device = "/dev/disk/by-uuid/0ba293d7-d290-44a9-9862-4eda7dcbb053";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4D80-2D07";
+    { device = "/dev/disk/by-uuid/A137-FA6B";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };

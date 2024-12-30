@@ -8,8 +8,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
-    # NOTE: 'nixos' is the default hostname set by the installer
-    nixosConfigurations.nixos = let 
+    nixosConfigurations.utm-work = let 
 	pkgs = import nixpkgs {
 		system = "aarch64-linux";
 		config = {
@@ -18,7 +17,6 @@
 		};
 	};
 	in nixpkgs.lib.nixosSystem {
-      # NOTE: Change this to aarch64-linux if you are on ARM
       system = "aarch64-linux";
       specialArgs = inputs // { pkgs = pkgs; };
       modules = [ 
