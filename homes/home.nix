@@ -74,26 +74,11 @@
     # '';
   };
 
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/houssem/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     # EDITOR = "emacs";
     ZSH_THEME = "arrow";
   };
 
-  imports = [ ./dconf.nix ];
-
-  xdg.mime.enable = true;
-  xdg.systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share/applications" ];
-  
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.vscode = {
