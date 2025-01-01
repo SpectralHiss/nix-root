@@ -47,6 +47,9 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
+  services.xserver.displayManager.sessionCommands = ''
+  xrandr --output default --mode 1920x1080
+  '';
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -104,12 +107,10 @@
 
   system.stateVersion = "24.11"; # Did you read the comment?
 
-  nix = {
-	gc = {
-		automatic = true;
-		interval = { Weekday = 0; Hour = 0; Minute = 0;};
-		options = "--delete-older-than 7d";
-	};
+  nix.gc = {
+	automatic = true;
+	dates = "weekly";
+	options = "--delete-older-than 7d";
   };
 
 }
