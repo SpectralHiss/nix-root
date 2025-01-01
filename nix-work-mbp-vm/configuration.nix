@@ -102,6 +102,14 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
+
+  nix = {
+	gc = {
+		automatic = true;
+		interval = { Weekday = 0; Hour = 0; Minute = 0;};
+		options = "--delete-older-than 7d";
+	};
+  };
 
 }
