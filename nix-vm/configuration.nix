@@ -47,9 +47,9 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # Enable the XFCE Desktop Environment.
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
   # Configure keymap in X11
@@ -62,7 +62,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -98,7 +97,7 @@
     ];
   };
   
-  home-manager.users.houssem = import /home/houssem/Desktop/9nixvm/home.nix;
+  home-manager.users.houssem = import /home/houssem/Desktop/00SpectralHiss/nix-root/homes/home.nix;
   programs.zsh.enable = true;
   
 
@@ -110,8 +109,6 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-     gnomeExtensions.desktop-icons-ng-ding
-     gnome3.gnome-tweaks
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

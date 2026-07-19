@@ -7,24 +7,29 @@
   home.username = "houssem";
   home.homeDirectory = "/home/houssem";
   fonts.fontconfig.enable = true;
+  nixpkgs.config.allowUnfree = true;
 
   home.stateVersion = "24.05"; 
 
   home.packages = with pkgs; [
     hugo
+    codecrafters-cli
     guake
     git
     xsel
+    uv
     vim
     deja-dup
     chromium
     gnumake
-    taskwarrior
+    taskwarrior2
     taskwarrior-tui
     kubectl
     istioctl
     openssl
     wget
+    wl-clipboard
+    xclip
     file
     kubectx
     docker-compose
@@ -35,19 +40,26 @@
     gh
     krew
     k9s
+    kubebuilder
     kubernetes-helm
     helm-docs
     pandoc
     go
+    gotools
+    gopls
+    golangci-lint
+    delve
     yq
     jq
-    vault
     awscli2
     kind
     kustomize
     silver-searcher
     (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-    (pkgs.nerdfonts.override { fonts = [ "DejaVuSansMono" "FiraCode" "DroidSansMono" ]; })
+    nerd-fonts.dejavu-sans-mono
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    opencode
     protobuf
     protoc-gen-go
     protoc-gen-go-grpc
@@ -57,6 +69,7 @@
     openjdk
     nginx
     zoxide
+    zeal
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -77,6 +90,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     ZSH_THEME = "arrow";
+    OPENCODE_CONFIG_DIR = "${config.home.homeDirectory}/Desktop/.opencode/";
   };
 
   # Let Home Manager install and manage itself.
@@ -143,7 +157,7 @@
   programs.git = {
     enable = true;
     userName = "SpectralHiss";
-    userEmail = "houssem.elfekih@jetstack.io";
+    userEmail = "houssem.elfekih@pm.me";
     aliases = {
       a = "add";
       c = "commit";
