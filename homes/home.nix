@@ -1,15 +1,29 @@
 { config, pkgs, ... }:
+let
+  # evaluates flakes with plain nix
+  flake-compat = builtins.fetchTarball {
+    url = "https://github.com/NixOS/flake-compat/archive/refs/tags/v1.1.0.tar.gz";
+    sha256 = "19d2z6xsvpxm184m41qrpi1bplilwipgnzv9jy17fgw421785q1m";
+  };
 
+  # pinned kimi-cli source
+  kimi-cli-src = builtins.fetchTarball {
+    url = "https://github.com/MoonshotAI/kimi-cli/archive/refs/tags/1.50.0.tar.gz";
+    sha256 = "0av5b5ih3liki91jhdcf9d092xwrhzi402c45cjazxsfh0mgibf1";
+  };
+
+  kimi-cli =
+    (import flake-compat { src = kimi-cli-src; })
+    .defaultNix.packages.${pkgs.system}.default;
+in
 {
   targets.genericLinux.enable = true;
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "houssem";
   home.homeDirectory = "/home/houssem";
   fonts.fontconfig.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  home.stateVersion = "24.05"; 
+  home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
     hugo
@@ -70,30 +84,17 @@
     nginx
     zoxide
     zeal
+    zed-editor
+    kimi-cli
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-
   home.sessionVariables = {
-    # EDITOR = "emacs";
     ZSH_THEME = "arrow";
     OPENCODE_CONFIG_DIR = "${config.home.homeDirectory}/Desktop/.opencode/";
+    GOPATH = "$HOME/go";
+    GOBIN  = "$HOME/go/bin";
   };
 
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.vscode = {
     enable = true;
@@ -104,7 +105,7 @@
   };
   programs.bat.enable = true;
   programs.fzf.enable = true;
-  programs.fzf.enableZshIntegration = true;  
+  programs.fzf.enableZshIntegration = true;
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -122,7 +123,6 @@
        export PATH="/home/houssem/.crc/bin/oc:$PATH"
        export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
        export WORKON_HOME=~/Envs
-       #source /usr/local/bin/virtualenvwrapper.sh
       '';
     oh-my-zsh = {
       enable = true;
@@ -153,7 +153,7 @@
     };
 
   programs.zoxide.enable = true;
-  
+
   programs.git = {
     enable = true;
     userName = "SpectralHiss";

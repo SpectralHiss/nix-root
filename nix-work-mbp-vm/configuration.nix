@@ -1,6 +1,3 @@
-# Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -11,7 +8,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Bootloader.
   boot.loader.grub = {
 	enable = true;
 
@@ -22,17 +18,14 @@
 
   boot.loader.efi.canTouchEfiVariables = false;
 
-  networking.hostName = "utm-work"; # Define your hostname.
+  networking.hostName = "utm-work";
   networking.wireless.enable = false;
 
 
-  # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/London";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -50,23 +43,18 @@
   services.xserver.displayManager.sessionCommands = ''
   xrandr --output default --mode 1920x1080
   '';
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
   services.xserver.desktopManager.xfce.enable = true;
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
-  # Configure keymap in X11
   services.xserver = {
     layout = "us";
     xkbVariant = "";
   };
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -92,20 +80,19 @@
       firefox
     ];
   };
-  
+
   security.sudo = {
     enable = true;
-    wheelNeedsPassword = true; # Configurable
+    wheelNeedsPassword = true;
     extraConfig = ''
       %wheel ALL=(ALL:ALL) ALL
     '';
   };
   programs.zsh.enable = true;
-  
-  # Enable the OpenSSH daemon.
+
   services.openssh.enable = true;
 
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "24.11";
 
   nix.gc = {
 	automatic = true;
